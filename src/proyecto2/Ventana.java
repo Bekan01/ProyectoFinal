@@ -37,8 +37,45 @@ public class Ventana extends javax.swing.JFrame {
         //CREACIÓN DE ARREGLOS:::
          String[] columna={"PRODUCTO","PRECIO"};
          String[][] fila={{"papaya","5"},
-                          {"pera","3"},
-                          {"manzana","0.50"}};
+                          {"pera","3"},                          
+                          {"Manzana","S/.3.50"},
+                          {"Sandilla","S/.6"},
+                          {"Leche","S/.4.99"},
+                          {"Pan","S/.0.50"},
+                          {"Huevo","S/.2.79"},
+                          {"Arroz","S/.3.99"},
+                          {"Pasta","S/.2.29"},
+                          {"Yogur","S/.4.99"},
+                          {"Pollo","S/.16.99"},
+                          {"Tomates","S/.4.79"},
+                          {"Platanos","S/.3.49"},
+                          {"Queso","S/.3.49"},
+                          {"Mantequilla","S/.2.19"},
+                          {"Carne Molida","S/.4.99"},
+                          {"Cebollas","S/.5"},
+                          {"Zanahorias","S/.3"},
+                          {"Galletas","S/.1"},
+                          {"Salsa de tomates","S/.1.99"},
+                          {"Cafe","S/.4.99"},
+                          {"Refrescos","S/.1.99"},
+                          {"Lechuga","S/.1.29"},
+                          {"Cereal","S/.1.50"},
+                          {"Mermelada ","S/.2.99"},
+                          {"Salsa de soja","S/.4.99"},
+                          {"Refrescos","S/.2.99"},
+                          {"Jabón de baño","S/.1.29"},                         
+                          {"Aceitunas","S/.4"},
+                          {"Salmón fresco","S/.1.99"},
+                          {"Cebollas verdes ","S/.4.99"},
+                          {"Yogur griego","S/.3.99"},
+                          {"Galletas saladas","S/.2.29"},
+                          {"Salchichas","S/.4"},
+                          {"Mostaza","S/.1.99"},
+                          {"Aguacates","S/.4.99"},
+                          {"Limones","S/.2.99"},
+                          {"Salsa de barbacoa","S/.3.29"}
+         
+         };
          DefaultTableModel modelo = new DefaultTableModel(fila,columna);
          tabla.setModel(modelo);
          tabla.setAutoCreateRowSorter(true);
