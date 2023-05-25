@@ -2,7 +2,8 @@
 package proyecto2;
 
 
-//import entidades.Categoria;
+
+import entidades.Categoria;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -86,8 +87,16 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         
         
     private void limpiar (){
+        
+        txtCodigo.setText(""); 
         txtNombre.setText("");
         txtDescripcion.setText("");
+        txtPrecioVenta.setText("");
+        txtStock.setText("");
+        this.imagen="";
+        lblImagen.setIcon(null);
+        this.rutaDestino="";
+        this.rutaOrigen="";
         this.accion="guardar";
         
         
@@ -150,7 +159,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Productos");
+        setTitle("Articulo");
 
         tabGeneral.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -290,7 +299,11 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Precio Venta (*)");
 
+        txtPrecioVenta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
         jLabel8.setText("Stock");
+
+        txtStock.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         jLabel9.setText("Imagen");
 
@@ -323,12 +336,11 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(btnGuardar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                             .addComponent(txtCodigo))
@@ -429,8 +441,18 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       if (txtNombre.getText().length()==0 || txtNombre.getText().length()>20){
-            JOptionPane.showMessageDialog(this, "Debes ingresar un nombre y no debe ser mayor a 20 caracteres, es obligatorio.","Sistema", JOptionPane.WARNING_MESSAGE);
+       if (txtNombre.getText().length()==0 || txtNombre.getText().length()>100){
+            JOptionPane.showMessageDialog(this, "Debes ingresar un nombre y no debe ser mayor a 100 caracteres, es obligatorio.","Sistema", JOptionPane.WARNING_MESSAGE);
+            txtNombre.requestFocus();
+            return;
+        }
+       if (txtPrecioVenta.getText().length()==0){
+            JOptionPane.showMessageDialog(this, "Debes ingresar un precio de venta, es obligatorio.","Sistema", JOptionPane.WARNING_MESSAGE);
+            txtNombre.requestFocus();
+            return;
+        }
+       if (txtStock.getText().length()==0){
+            JOptionPane.showMessageDialog(this, "Debes ingresar un stock del articulo, es obligatorio.","Sistema", JOptionPane.WARNING_MESSAGE);
             txtNombre.requestFocus();
             return;
         }
@@ -455,12 +477,18 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                 this.mensajeError(resp);
             }
         }else{
-            //guardar 
+            //guardar
             
-             resp = "OK";
-             
-            // resp=this.CONTROL.insertar(txtNombre.getText(), txtDescripcion.getText());
+            Categoria seleccionado = (Categoria)cboCategoria.getSelectedItem();
+            
+            resp=this.CONTROL.insertar(seleccionado.getId(), txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtPrecioVenta.getText()),Integer.parseInt(txtStock.getText()), txtDescripcion.getText(),this.imagen);
             if(resp.equals("OK")){
+                if(!this.imagen.equals("")){
+                
+                    this.subirImagenes(); 
+                
+                }
+                
                 this.mensajeOk("Registrado correctamente");
                 this.limpiar();
                 this.listar("");                
