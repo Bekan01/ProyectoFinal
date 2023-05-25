@@ -3,17 +3,17 @@ package proyecto2;
 
 
 //import entidades.Categoria;
-//import java.awt.Image;
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.io.OutputStream;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import javax.swing.DefaultComboBoxModel;
-//import javax.swing.Icon;
-//import javax.swing.ImageIcon;
-//import javax.swing.JFileChooser;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 import negocio.ArticuloControl;
@@ -23,6 +23,11 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     private final ArticuloControl CONTROL;
     private String accion;
     private String nombreAnt;
+    
+    private String rutaOrigen;
+    private String rutaDestino;
+    private final String DIRECTORIO="src/files/articulos/";
+    private String imagen="";
     
     
     public FrmArticulo() {
@@ -61,6 +66,25 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         cboCategoria.setModel(items);
     }
     
+        private void subirImagenes(){
+        File origen=new File(this.rutaOrigen);
+        File destino=new File(this.rutaDestino);
+        try {
+            InputStream in= new FileInputStream(origen);
+            OutputStream out=new FileOutputStream(destino);
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+        
+        
     private void limpiar (){
         txtNombre.setText("");
         txtDescripcion.setText("");
@@ -118,7 +142,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         txtStock = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
-        lblImgen = new javax.swing.JLabel();
+        lblImagen = new javax.swing.JLabel();
         btnAgregarImagen = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -270,10 +294,15 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Imagen");
 
-        lblImgen.setBackground(new java.awt.Color(204, 255, 204));
-        lblImgen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblImagen.setBackground(new java.awt.Color(204, 255, 204));
+        lblImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnAgregarImagen.setText("Agregar");
+        btnAgregarImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarImagenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -309,7 +338,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtStock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                             .addComponent(txtPrecioVenta, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblImgen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblImagen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(btnAgregarImagen)))
                 .addContainerGap(133, Short.MAX_VALUE))
@@ -345,7 +374,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addGap(0, 83, Short.MAX_VALUE))
-                            .addComponent(lblImgen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -495,6 +524,21 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
+       JFileChooser file = new JFileChooser();
+        int estado=file.showOpenDialog(this);
+        if (estado==JFileChooser.APPROVE_OPTION){
+            this.imagen=file.getSelectedFile().getName();
+            this.rutaOrigen=file.getSelectedFile().getAbsolutePath();
+            this.rutaDestino=this.DIRECTORIO + this.imagen;
+            
+            ImageIcon im=new ImageIcon(this.rutaOrigen);
+            Icon icono=new ImageIcon(im.getImage().getScaledInstance(lblImagen.getWidth(),lblImagen.getHeight(),Image.SCALE_DEFAULT));
+            lblImagen.setIcon(icono);
+            lblImagen.repaint();
+        }
+    }//GEN-LAST:event_btnAgregarImagenActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActivar;
@@ -520,7 +564,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblImgen;
+    private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblTotalRegistros;
     private javax.swing.JTabbedPane tabGeneral;
     private javax.swing.JTable tablaListado;
