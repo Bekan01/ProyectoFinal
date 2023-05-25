@@ -1,33 +1,32 @@
 
 package datos;
 
-import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import database.Conexion;
 import datos.interfaces.CrudSimpleInterface;
 import entidades.Categoria;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 
-public class CategoriaDAO implements CrudSimpleInterface<Categoria>{
-     private final Conexion CON;
-     private PreparedStatement ps;
-     private ResultSet rs;
-     private boolean resp;
-     
-     
-     public CategoriaDAO(){
-         CON=Conexion.getInstancia();
-     }
+
+public class CategoriaDAO implements CrudSimpleInterface<Categoria> {
+    private final Conexion CON;
+    private PreparedStatement ps;
+    private ResultSet rs;
+    private boolean resp;
+    
+    public CategoriaDAO(){
+        CON=Conexion.getInstancia();
+    }
     
     
     @Override
     public List<Categoria> listar(String texto) {
         List<Categoria> registros=new ArrayList();
-        
         try {
             ps=CON.conectar().prepareStatement("SELECT * FROM categoria WHERE nombre LIKE ?");
             ps.setString(1,"%" + texto +"%");
@@ -46,10 +45,30 @@ public class CategoriaDAO implements CrudSimpleInterface<Categoria>{
         }
         return registros;
     }
+    
+    public List<Categoria> seleccionar() {
+        List<Categoria> registros=new ArrayList();
+        try {
+            ps=CON.conectar().prepareStatement("SELECT id, nombre FROM categoria ORDER BY nombre asc");
+            rs=ps.executeQuery();
+            while(rs.next()){
+                registros.add(new Categoria(rs.getInt(1),rs.getString(2)));
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally{
+            ps=null;
+            rs=null;
+            CON.desconectar();
+        }
+        return registros;
+    }
 
     @Override
     public boolean insertar(Categoria obj) {
-       resp=false;
+        resp=false;
         try {
             ps=CON.conectar().prepareStatement("INSERT INTO categoria (nombre,descripcion,activo) VALUES (?,?,1)");
             ps.setString(1, obj.getNombre());
@@ -129,7 +148,7 @@ public class CategoriaDAO implements CrudSimpleInterface<Categoria>{
     @Override
     public int total() {
         int totalRegistros=0;
-        try { 
+        try {
             ps=CON.conectar().prepareStatement("SELECT COUNT(id) FROM categoria");            
             rs=ps.executeQuery();
             
@@ -146,21 +165,19 @@ public class CategoriaDAO implements CrudSimpleInterface<Categoria>{
             CON.desconectar();
         }
         return totalRegistros;
-       
     }
 
     @Override
     public boolean existe(String texto) {
         resp=false;
-        try { 
+        try {
             ps=CON.conectar().prepareStatement("SELECT nombre FROM categoria WHERE nombre=?");
-            ps.setString(1,texto);
+            ps.setString(1, texto);
             rs=ps.executeQuery();
             rs.last();
             if(rs.getRow()>0){
                 resp=true;
-            }
-            
+            }           
             ps.close();
             rs.close();
         }  catch (SQLException e) {
@@ -172,7 +189,4 @@ public class CategoriaDAO implements CrudSimpleInterface<Categoria>{
         }
         return resp;
     }
-    
-    
-    
 }

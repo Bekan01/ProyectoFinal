@@ -58,15 +58,15 @@ public class ArticuloControl {
         return this.modeloTabla;
     }
     
-//    public DefaultComboBoxModel seleccionar(){
-//        DefaultComboBoxModel items= new DefaultComboBoxModel();
-//        List<Categoria> lista=new ArrayList();
-//        lista=DATOSCAT.seleccionar();
-//        for (Categoria item: lista){
-//            items.addElement(new Categoria(item.getId(),item.getNombre()));
-//        }
-//        return items;
-//    }
+    public DefaultComboBoxModel seleccionar(){
+        DefaultComboBoxModel items= new DefaultComboBoxModel();
+        List<Categoria> lista=new ArrayList();
+        lista=DATOSCAT.seleccionar();
+        for (Categoria item: lista){
+            items.addElement(new Categoria(item.getId(),item.getNombre()));
+        }
+        return items;
+    }
     
     public String insertar(int categoriaId, String codigo, String nombre, double precioVenta, int stock,String descripcion, String imagen){
         if (DATOS.existe(nombre)){
