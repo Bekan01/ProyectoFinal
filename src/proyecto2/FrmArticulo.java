@@ -31,12 +31,18 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     private String imagen="";
     private String imagenAnt="";
     
+    private int totalPorPagina = 10;
+    private int numPagina = 1;
+    private boolean primeraCarga = true;
+    private int totalRegistros;
     
     public FrmArticulo() {
         initComponents();
         
         this.CONTROL=new ArticuloControl();
-        this.listar("");
+        this.paginar();
+        this.listar("",false);
+        this.primeraCarga=false;
         tabGeneral.setEnabledAt(1, false);
         this.accion="guardar";
         txtId.setVisible(false);
@@ -51,10 +57,41 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         tablaListado.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0); 
     }
     
-    
+    private void paginar(){
+        int totalPaginas;
+        
+        this.totalRegistros=this.CONTROL.total();
+        this.totalPorPagina=Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
+        totalPaginas=(int)(Math.ceil((double)this.totalRegistros/this.totalPorPagina));
+        if (totalPaginas==0){
+            totalPaginas=1;
+        }
+        cboNumPagina.removeAllItems();
+        
+        for (int i = 1; i <= totalPaginas; i++) {
+            cboNumPagina.addItem(Integer.toString(i));
+        }
+        cboNumPagina.setSelectedIndex(0);
+    }
    
-    private void listar (String texto){
-         tablaListado.setModel(this.CONTROL.listar(texto,10,1));
+    private void listar (String texto,boolean paginar){
+        
+        this.totalPorPagina=Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
+        
+        if((String)cboNumPagina.getSelectedItem()!=null){
+        
+            this.numPagina=Integer.parseInt((String)cboNumPagina.getSelectedItem());
+        }
+        if(paginar==true){
+        
+        tablaListado.setModel(this.CONTROL.listar(texto,this.totalPorPagina,this.numPagina));
+        
+        }else{
+        
+         tablaListado.setModel(this.CONTROL.listar(texto,this.totalPorPagina,1));
+        
+        }
+         
         TableRowSorter orden= new TableRowSorter(tablaListado.getModel());
         tablaListado.setRowSorter(orden);
         this.ocultarColumnas();
@@ -134,8 +171,8 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         btnDesactivar = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cboNumPagina = new javax.swing.JComboBox<>();
+        cboTotalPorPagina = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -220,9 +257,18 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboNumPagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboNumPaginaActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTotalPorPagina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "20", "50", "100", "200", "500" }));
+        cboTotalPorPagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTotalPorPaginaActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("# de pagina");
 
@@ -263,11 +309,11 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboNumPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel11)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboTotalPorPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)))))
                 .addContainerGap())
         );
@@ -287,8 +333,8 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboTotalPorPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboNumPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -455,7 +501,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        this.listar(txtBuscar.getText());
+        this.listar(txtBuscar.getText(),false);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -524,7 +570,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                 
                 this.mensajeOk("Actualizado correctamente");
                 this.limpiar();
-                this.listar("");                
+                this.listar("",false);                
                 tabGeneral.setSelectedIndex(0);
                 tabGeneral.setEnabledAt(1, false);
                 tabGeneral.setEnabledAt(0, true);
@@ -546,7 +592,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                 
                 this.mensajeOk("Registrado correctamente");
                 this.limpiar();
-                this.listar("");                
+                this.listar("",false);                
                 /*tabGeneral.setSelectedIndex(0);
                 tabGeneral.setEnabledAt(1, false);
                 tabGeneral.setEnabledAt(0, true);*/
@@ -610,7 +656,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                 String resp=this.CONTROL.desactivar(Integer.parseInt(id));
                 if (resp.equals("OK")){
                     this.mensajeOk("Registro desactivado");
-                    this.listar("");
+                    this.listar("",false);
                 }else{
                     this.mensajeError(resp);
                 }
@@ -639,6 +685,16 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 
+    private void cboTotalPorPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTotalPorPaginaActionPerformed
+        this.paginar();
+    }//GEN-LAST:event_cboTotalPorPaginaActionPerformed
+
+    private void cboNumPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNumPaginaActionPerformed
+         if (this.primeraCarga==false){
+            this.listar("",true);
+        }
+    }//GEN-LAST:event_cboNumPaginaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActivar;
@@ -651,8 +707,8 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JComboBox<String> cboCategoria;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> cboNumPagina;
+    private javax.swing.JComboBox<String> cboTotalPorPagina;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
