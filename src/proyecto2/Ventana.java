@@ -606,3 +606,5 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JTextField txtUnidades;
     // End of variables declaration//GEN-END:variables
 }
+
+//////////
