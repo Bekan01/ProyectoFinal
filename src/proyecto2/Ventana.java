@@ -423,7 +423,12 @@ public class Ventana extends javax.swing.JFrame {
         mnuAlmacen.add(jMenuItem1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItem2.setText("Articulos");
+        jMenuItem2.setText("Productos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         mnuAlmacen.add(jMenuItem2);
 
         jMenuBar1.add(mnuAlmacen);
@@ -534,6 +539,12 @@ public class Ventana extends javax.swing.JFrame {
         escritorio.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        FrmArticulo frm = new FrmArticulo();
+        escritorio.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     private void filtrado(){
         try {
             sorter.setRowFilter(RowFilter.regexFilter(txt.getText()));
