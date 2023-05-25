@@ -1,4 +1,3 @@
-
 package proyecto2;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class Productos {
 
     }
     
-    //Getter and Setter
+    //Getter y Setter
     public String getNombre() {
         return this.nombre;
     }
@@ -61,50 +60,21 @@ public class Productos {
     
     
     
-    DefaultTableModel modelo = new DefaultTableModel();
+   
         
-     public void CebeceraProductos(JTable tablaProductos){
-       String[] cabecera = new String[]{"NOMBRE","CANTIDAD DISPONIBLE","PRECIO"};
-        modelo.setColumnIdentifiers(cabecera);
-        tablaProductos.setModel(modelo);
-    }
-    
-       public void AgregarProducto(JTextField nombre, JTextField cantidad, JTextField precio){
-       if(nombre.getText().length()==0 && cantidad.getText().length()==0 && precio.getText().length()==0){
-          JOptionPane.showMessageDialog(null, "Por Favor Llene los campos del producto");
-       }
-       else{
-       this.nombre=nombre.getText();
-       this.cantidad=Integer.parseInt(cantidad.getText());
-       this.precio= Double.parseDouble(precio.getText());
-        modelo.addRow(new Object[]{this.nombre,this.cantidad,this.precio});
-        Productos producto = new Productos(this.nombre, this.cantidad, this.precio);
-
-        ListaProducto.add(producto);
-        //System.out.println("PRODUCTO AGREGADO"); 
-           
-       }
-       
-        
-    }
      
-    public void LimpiarDatosProductos(JTextField nombre, JTextField cantidad, JTextField precio){
-        nombre.setText("");
-        cantidad.setText("");
-        precio.setText("");
     }
     
-    
-    public void eliminarfilaProducto(JTable tablaProductos){
-        int fila=tablaProductos.getSelectedRow();
-        if(tablaProductos.getSelectedRow()==-1){
-            JOptionPane.showMessageDialog(null, "Por Favor Seleccione una fila");
-        }
-        else{
-           modelo.removeRow(fila); 
-        }
+       
+           
+       
+      
         
-    }
+    
+    
+   
+        
+    
     
 
-}
+

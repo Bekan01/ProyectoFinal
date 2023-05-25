@@ -21,6 +21,8 @@ public class vista1 extends javax.swing.JFrame {
      */
     public vista1() {
         initComponents();
+        
+        //ponemos una imagen
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("autores");
@@ -53,7 +55,7 @@ public class vista1 extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("ESTE PROPGRAMA FUE DESARROLADO POR TRES PERSONAS EN GENERAL");
+        jLabel1.setText("ESTE PROGRAMA FUE DESARROLADO POR TRES PERSONAS EN GENERAL");
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 0));
@@ -63,7 +65,7 @@ public class vista1 extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 0, 0));
         jLabel3.setText("MUCHAS GRACIAS POR SU ATENCION");
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setForeground(new java.awt.Color(0, 51, 204));
         jButton1.setText("Atras");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +75,7 @@ public class vista1 extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel4.setText("ERYR BEKAN YAHURI MENDOZA");
+        jLabel4.setText("ERYR BEKAN YAURI MENDOZA");
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 0));

@@ -1,4 +1,3 @@
-
 package proyecto2;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -84,39 +83,18 @@ public class Clientes {
         tablaClientes.setModel(modelo);
     }
     
-    public String AgregarCliente(JTextField nombre, JTextField apellido, JTextField dni,JTextField direcc, JTextField celular,JTextField email){
-       
-       this.nombre=nombre.getText();
-       this.apellido=apellido.getText();
-       this.dni=dni.getText();
-       this.direccion=direcc.getText();
-       this.celular=celular.getText();
-       this.email=email.getText();
-       modelo.addRow(new Object[]{this.nombre,this.apellido,this.dni,this.direccion,this.celular,this.email});
-       return nombre.getText();
-    }
+    
 
-    public void LimpiarDatosClientes(JTextField nombre, JTextField apellido, JTextField ced,JTextField direcc, JTextField celular,JTextField email){
-        nombre.setText("");
-        apellido.setText("");
-        ced.setText("");
-        direcc.setText("");
-        celular.setText("");
-        email.setText("");
+   
     }
     
-    public void eliminarfilaCliente(JTable tablaClientes){
-        int fila=tablaClientes.getSelectedRow();
-        if(tablaClientes.getSelectedRow()==-1){
-            JOptionPane.showMessageDialog(null, "por favor Seleccione una fila");
-        }
-        else{
-           modelo.removeRow(fila); 
-        }
+    
+    
         
-    }
     
-}
+    
+
+
 
 
 //prueba bekan

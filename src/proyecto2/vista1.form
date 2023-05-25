@@ -80,7 +80,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="ESTE PROPGRAMA FUE DESARROLADO POR TRES PERSONAS EN GENERAL"/>
+        <Property name="text" type="java.lang.String" value="ESTE PROGRAMA FUE DESARROLADO POR TRES PERSONAS EN GENERAL"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -107,8 +107,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="33" red="33" type="rgb"/>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="33" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Atras"/>
       </Properties>
@@ -124,7 +124,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="ERYR BEKAN YAHURI MENDOZA"/>
+        <Property name="text" type="java.lang.String" value="ERYR BEKAN YAURI MENDOZA"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">

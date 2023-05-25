@@ -22,7 +22,7 @@ public class JFrameFactura extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        setTitle("programa");
+        setTitle("factura");
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/fondoFacturaSi.jpg")).getImage());
          ((JPanel)getContentPane()).setOpaque(false);
         ImageIcon uno=new ImageIcon(this.getClass().getResource("/Imagenes/fondoFacturaSi.jpg"));
