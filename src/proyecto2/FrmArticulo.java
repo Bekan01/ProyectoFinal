@@ -249,6 +249,11 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         });
 
         btnActivar.setText("Activar");
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -650,7 +655,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
          if (tablaListado.getSelectedRowCount() == 1) {
             String id= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),0));
-            String nombre= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),1));
+            String nombre= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),4));
             
             if(JOptionPane.showConfirmDialog(this,"Deseas desactivar el registro: " + nombre + " ?", "Desactivar", JOptionPane.YES_NO_OPTION)==0){
                 String resp=this.CONTROL.desactivar(Integer.parseInt(id));
@@ -694,6 +699,25 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
             this.listar("",true);
         }
     }//GEN-LAST:event_cboNumPaginaActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        if (tablaListado.getSelectedRowCount() == 1) {
+            String id= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),0));
+            String nombre= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),4));
+            
+            if(JOptionPane.showConfirmDialog(this,"Deseas activar el registro: " + nombre + " ?", "Activar", JOptionPane.YES_NO_OPTION)==0){
+                String resp=this.CONTROL.activar(Integer.parseInt(id));
+                if (resp.equals("OK")){
+                    this.mensajeOk("Registro activado");
+                    this.listar("",false);
+                }else{
+                    this.mensajeError(resp);
+                }
+            }
+        } else {
+            this.mensajeError("Seleccione 1 registro a activar.");
+        }
+    }//GEN-LAST:event_btnActivarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
