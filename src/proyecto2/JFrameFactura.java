@@ -298,11 +298,11 @@ public class JFrameFactura extends javax.swing.JFrame {
                     .addComponent(precio2))
                 .addGap(18, 18, 18)
                 .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalirFactura)
                     .addComponent(jButton1))
-                .addGap(47, 47, 47))
+                .addGap(56, 56, 56))
         );
 
         pack();
