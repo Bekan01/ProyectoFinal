@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 
 public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
+    
     private final Conexion CON;
     private PreparedStatement ps;
     private ResultSet rs;

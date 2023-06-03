@@ -12,7 +12,7 @@ public class Conexion {
     private final String URL="jdbc:mysql://localhost:3306/";
     private final String DB ="dbsistema";
     private final String USER="root";
-    private final String PASSWORD="1234";
+    private final String PASSWORD="";
     
     public Connection cadena;
     

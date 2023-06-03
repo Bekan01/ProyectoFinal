@@ -12,8 +12,15 @@ import javax.swing.table.TableRowSorter;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import negocio.Articulo2Control;
 
 public class Ventana extends javax.swing.JFrame {
+    
+    private final Articulo2Control CONTROL;
+      
+    
+    
+    
     
     DefaultTableModel modelo = new DefaultTableModel();
     
@@ -21,9 +28,24 @@ public class Ventana extends javax.swing.JFrame {
    Clientes cliente = new Clientes();
    Productos producto = new Productos();
    Ventas venta = new Ventas();
+   
+   
+   
     public Ventana() {
+        
+        
         initComponents();
-        crearTabla();
+        this.CONTROL=new Articulo2Control();
+        this.listar("");
+        
+    
+        
+            
+            
+        
+        
+        
+//        crearTabla();
         
        //ponemos una imagen de fondo
         setResizable(false);
@@ -37,55 +59,61 @@ public class Ventana extends javax.swing.JFrame {
         fondo.setBounds(0,0,uno.getIconWidth(),uno.getIconHeight());
     }
     
-    private void crearTabla(){
-        //CREACIÓN DE ARREGLOS:::
-         String[] columna={"PRODUCTO","PRECIO EN S/."};
-         String[][] fila={{"papaya","5"},
-                          {"pera","3"},                          
-                          {"Manzana","3.50"},
-                          {"Sandilla","6"},
-                          {"Leche","4.99"},
-                          {"Pan","0.50"},
-                          {"Huevo","2.79"},
-                          {"Arroz","3.99"},
-                          {"Pasta","2.29"},
-                          {"Yogur","4.99"},
-                          {"Pollo","16.99"},
-                          {"Tomates","4.79"},
-                          {"Platanos","3.49"},
-                          {"Queso","3.49"},
-                          {"Mantequilla","2.19"},
-                          {"Carne Molida","4.99"},
-                          {"Cebollas","5"},
-                          {"Zanahorias","3"},
-                          {"Galletas","1"},
-                          {"Salsa de tomates","1.99"},
-                          {"Cafe","4.99"},
-                          {"Refrescos","1.99"},
-                          {"Lechuga","1.29"},
-                          {"Cereal","1.50"},
-                          {"Mermelada ","2.99"},
-                          {"Salsa de soja","4.99"},
-                          {"Refrescos","2.99"},
-                          {"Jabón de baño","1.29"},                         
-                          {"Aceitunas","4"},
-                          {"Salmón fresco","1.99"},
-                          {"Cebollas verdes ","4.99"},
-                          {"Yogur griego","3.99"},
-                          {"Galletas saladas","2.29"},
-                          {"Salchichas","4"},
-                          {"Mostaza","1.99"},
-                          {"Aguacates","4.99"},
-                          {"Limones","2.99"},
-                          {"Salsa de barbacoa","3.29"}
-         
-         };
-         DefaultTableModel modelo = new DefaultTableModel(fila,columna);
-         tabla.setModel(modelo);
-         tabla.setAutoCreateRowSorter(true);
-        sorter = new TableRowSorter<>(modelo);
-        tabla.setRowSorter(sorter);
+       private void listar (String texto){
+        tablaListado2.setModel(this.CONTROL.listar(texto,10,1));
+        
     }
+    
+    
+//    private void crearTabla(){
+//        //CREACIÓN DE ARREGLOS:::
+//         String[] columna={"PRODUCTO","PRECIO EN S/."};
+//         String[][] fila={{"papaya","5"},
+//                          {"pera","3"},                          
+//                          {"Manzana","3.50"},
+//                          {"Sandilla","6"},
+//                          {"Leche","4.99"},
+//                          {"Pan","0.50"},
+//                          {"Huevo","2.79"},
+//                          {"Arroz","3.99"},
+//                          {"Pasta","2.29"},
+//                          {"Yogur","4.99"},
+//                          {"Pollo","16.99"},
+//                          {"Tomates","4.79"},
+//                          {"Platanos","3.49"},
+//                          {"Queso","3.49"},
+//                          {"Mantequilla","2.19"},
+//                          {"Carne Molida","4.99"},
+//                          {"Cebollas","5"},
+//                          {"Zanahorias","3"},
+//                          {"Galletas","1"},
+//                          {"Salsa de tomates","1.99"},
+//                          {"Cafe","4.99"},
+//                          {"Refrescos","1.99"},
+//                          {"Lechuga","1.29"},
+//                          {"Cereal","1.50"},
+//                          {"Mermelada ","2.99"},
+//                          {"Salsa de soja","4.99"},
+//                          {"Refrescos","2.99"},
+//                          {"Jabón de baño","1.29"},                         
+//                          {"Aceitunas","4"},
+//                          {"Salmón fresco","1.99"},
+//                          {"Cebollas verdes ","4.99"},
+//                          {"Yogur griego","3.99"},
+//                          {"Galletas saladas","2.29"},
+//                          {"Salchichas","4"},
+//                          {"Mostaza","1.99"},
+//                          {"Aguacates","4.99"},
+//                          {"Limones","2.99"},
+//                          {"Salsa de barbacoa","3.29"}
+//         
+//         };
+//         DefaultTableModel modelo = new DefaultTableModel(fila,columna);
+//         tabla.setModel(modelo);
+//         tabla.setAutoCreateRowSorter(true);
+//        sorter = new TableRowSorter<>(modelo);
+//        tabla.setRowSorter(sorter);
+//    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -96,6 +124,8 @@ public class Ventana extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
         ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/fondoVenta.jpg"));
         Image image = icon.getImage();
         escritorio = new javax.swing.JDesktopPane()
@@ -107,8 +137,6 @@ public class Ventana extends javax.swing.JFrame {
         }
 
         ;
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
         txtUnidades = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -130,13 +158,12 @@ public class Ventana extends javax.swing.JFrame {
         jLabelCelular = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaListado2 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuAlmacen = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 204, 204));
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -167,6 +194,9 @@ public class Ventana extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
         tabla.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 204, 204));
 
         txtUnidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -340,7 +370,16 @@ public class Ventana extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("VENTAS");
 
-        escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tablaListado2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tablaListado2);
+
         escritorio.setLayer(txtUnidades, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -349,66 +388,63 @@ public class Ventana extends javax.swing.JFrame {
         escritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(424, 424, 424)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(escritorioLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(escritorioLayout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(escritorioLayout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
                     .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(escritorioLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(497, 497, 497))
+                            .addGroup(escritorioLayout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, escritorioLayout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(64, 64, 64))
+                        .addGap(131, 131, 131)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(64, 67, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(16, 16, 16)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)))
-                .addGap(37, 37, 37)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(21, 21, 21)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         mnuAlmacen.setText("Almacen");
@@ -439,11 +475,16 @@ public class Ventana extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(escritorio)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(escritorio)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -605,6 +646,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTextField jTextFieldApellido;
     public static javax.swing.JTextField jTextFieldCelular;
     public static javax.swing.JTextField jTextFieldDNI;
@@ -613,6 +655,7 @@ public class Ventana extends javax.swing.JFrame {
     public static javax.swing.JTextField jTextFieldNombreCli;
     private javax.swing.JMenu mnuAlmacen;
     private javax.swing.JTable tabla;
+    private javax.swing.JTable tablaListado2;
     private javax.swing.JTextField txt;
     private javax.swing.JTextField txtUnidades;
     // End of variables declaration//GEN-END:variables
