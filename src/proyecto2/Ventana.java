@@ -513,8 +513,8 @@ public class Ventana extends javax.swing.JFrame {
         JFrameFactura.jTextField4.setText(jTextFieldDireccion.getText()); //DIRECCION
         JFrameFactura.jTextField5.setText(jTextFieldCelular.getText());   //CELULAR:::::
         JFrameFactura.jTextField6.setText(jTextFieldEmail.getText());     //EMAIL:::
-        JFrameFactura.txtProducto.setText(tabla.getValueAt(tabla.getSelectedRow(), 0).toString());//PRODUCT:::
-        JFrameFactura.txtPrecio.setText(tabla.getValueAt(tabla.getSelectedRow(), 1).toString());//PRECIO:::
+        JFrameFactura.txtProducto.setText(tabla.getValueAt(tablaListado2.getSelectedRow(), 5).toString());//PRODUCT:::
+        JFrameFactura.txtPrecio.setText(tabla.getValueAt(tablaListado2.getSelectedRow(), 6).toString());//PRECIO:::
         JFrameFactura.txtCantidad.setText(txtUnidades.getText());         //CANTIDADES
     }//GEN-LAST:event_jButton2ActionPerformed
 
